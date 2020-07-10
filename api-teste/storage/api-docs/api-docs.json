@@ -1,0 +1,43 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Teste",
+        "description": "Api teste para o programa de estágio Aiko",
+        "contact": {
+            "name": "João Lapa",
+            "email": "joaomanoel1996@hotmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://api.aiko.test/api/v1",
+            "description": "Servidor padrão da api"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Lista de usuários",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\UserController::index",
+                "responses": {
+                    "200": {
+                        "description": "Uma lista com todos os usuários cadastrados"
+                    },
+                    "401": {
+                        "description": "Acesso não autorizado"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Conjunto de rotas com operações de CRUD para Usuários"
+        }
+    ]
+}
