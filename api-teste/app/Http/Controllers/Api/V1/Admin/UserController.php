@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 /**
  * @OA\Tag(
  *   name="Users",
- *   description="Conjunto de rotas com operações de CRUD para Usuários"
+ *   description="Conjunto de endpoints com operações de CRUD para Usuários"
  * )
  */
 
