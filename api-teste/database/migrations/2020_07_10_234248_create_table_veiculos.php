@@ -18,7 +18,8 @@ class CreateTableVeiculos extends Migration
             $table->unsignedBigInteger('linha_id');
             $table->string('name');
             $table->string('modelo');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
             $table->foreign('linha_id')->references('id')->on('linhas');
         });

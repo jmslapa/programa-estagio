@@ -18,11 +18,9 @@ Route::group([
     'namespace' => 'Api\\V1\\Admin',
 ], function() {
 
-    Route::group([
-        'prefix' => 'users',
-        'name' => 'users.'
-    ], function() {
-        Route::get('/', 'UserController@index');
-    });
+    // endpoints users
+    Route::resource('/users', 'UserController');
 
+    // endpoints paradas 
+    Route::resource('/paradas', 'ParadaController');
 });

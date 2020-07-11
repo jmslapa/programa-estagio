@@ -16,6 +16,191 @@
         }
     ],
     "paths": {
+        "/paradas": {
+            "get": {
+                "tags": [
+                    "Paradas"
+                ],
+                "summary": "Lista de paradas",
+                "description": "Retorna uma lista, em formato JSON, com todas as paradas cadastradas",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\ParadaController::index",
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ParadaResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Paradas"
+                ],
+                "summary": "Persiste nova parada",
+                "description": "Retorna, em formato JSON, dados da nova parada criada",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\ParadaController::store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ParadaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Parada"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                }
+            }
+        },
+        "/paradas/{id}": {
+            "get": {
+                "tags": [
+                    "Paradas"
+                ],
+                "summary": "Informação de parada",
+                "description": "Retorna dados de uma parada",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\ParadaController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parada id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Parada"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Não Autorizado"
+                    },
+                    "404": {
+                        "description": "Recurso não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Paradas"
+                ],
+                "summary": "Atualiza parada existente",
+                "description": "Retorna dados de uma parada atualizada",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\ParadaController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parada id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ParadaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Parada"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Recurso não encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Paradas"
+                ],
+                "summary": "Exclui parada existente",
+                "description": "Exclui uma parada e não retorna nenhum conteúdo",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\ParadaController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parada id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Operação bem sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Recurso não encontrado"
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "tags": [
@@ -37,10 +222,108 @@
             }
         }
     },
+    "components": {
+        "schemas": {
+            "ParadaRequest": {
+                "title": "ParadaRequest",
+                "description": "Dados do corpo da ParadaRequest",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome de uma parada",
+                        "type": "string",
+                        "example": "Final de linha da Pituba"
+                    },
+                    "latitude": {
+                        "title": "Latitude",
+                        "description": "Latitude da posição geográfica da parada",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-12.994757"
+                    },
+                    "longitude": {
+                        "title": "Longitude",
+                        "description": "Longitude da posição geográfica da parada",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-38.4612137"
+                    }
+                },
+                "type": "object"
+            },
+            "ParadaResource": {
+                "title": "ParadaResource",
+                "description": "Recurso parada",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Wrapper de dados",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Parada"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ParadaResource"
+                }
+            },
+            "Parada": {
+                "title": "Parada",
+                "description": "model Parada",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Identificador único",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome de uma parada",
+                        "type": "string",
+                        "example": "Final de linha da Pituba"
+                    },
+                    "latitude": {
+                        "title": "Latitude",
+                        "description": "Latitude da posição geográfica da parada",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-12.994757"
+                    },
+                    "longitude": {
+                        "title": "Longitude",
+                        "description": "Longitude da posição geográfica da parada",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-38.461213"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Project"
+                }
+            }
+        },
+        "responses": {
+            "401": {
+                "description": "Não autorizado"
+            }
+        }
+    },
     "tags": [
         {
+            "name": "Paradas",
+            "description": "Conjunto de endpoints com operações de CRUD para Paradas"
+        },
+        {
             "name": "Users",
-            "description": "Conjunto de rotas com operações de CRUD para Usuários"
+            "description": "Conjunto de endpoints com operações de CRUD para Usuários"
         }
     ]
 }
