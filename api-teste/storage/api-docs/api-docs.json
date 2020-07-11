@@ -25,7 +25,10 @@
                 "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\UserController::index",
                 "responses": {
                     "200": {
-                        "description": "Uma lista com todos os usuários cadastrados"
+                        "description": "Uma lista com todos os usuários cadastrados",
+                        "content": {
+                            "application/json": {}
+                        }
                     },
                     "401": {
                         "description": "Acesso não autorizado"

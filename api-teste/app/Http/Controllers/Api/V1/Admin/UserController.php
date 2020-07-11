@@ -39,7 +39,10 @@ class UserController extends Controller
      *   tags={"Users"},
      *   @OA\Response(
      *     response=200,
-     *     description="Uma lista com todos os usuários cadastrados"
+     *     description="Uma lista com todos os usuários cadastrados",
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *     )
      *   ),
      *   @OA\Response(
      *     response=401,
