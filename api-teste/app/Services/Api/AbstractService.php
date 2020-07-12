@@ -7,7 +7,7 @@ use App\Repositories\AbstractRepository;
 /**
  * Serviço abstrato base para os serviços de entidade
  */
-class AbstractService
+abstract class AbstractService
 {
     /**
      * Repositório de entidade do serviço     *
@@ -24,6 +24,20 @@ class AbstractService
     {
         $this->repository = $repository;
     }
+
+    /**
+     * Retorna uma instância de Resource do Model base do serviço.
+     *
+     * @return Resoruce
+     */
+    public abstract function newResource();
+
+    /**
+     * Retorna uma instância de ResourceCollection do Model base do serviço.
+     *
+     * @return ResourceCollection
+     */
+    public abstract function newCollection();
 
     /**
      * Retorna uma lista com todos os registros.

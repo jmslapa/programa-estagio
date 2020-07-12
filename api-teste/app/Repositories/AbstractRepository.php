@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Classe abtstrata base para os repositórios de entidades
  */
-class AbstractRepository {
+abstract class AbstractRepository {
 
     /**
      * Entidade do repositório
