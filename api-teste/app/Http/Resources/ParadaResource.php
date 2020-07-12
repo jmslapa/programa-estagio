@@ -24,7 +24,7 @@ class ParadaResource extends JsonResource
      *
      * @var \App\Parada[]
      */
-    private $data;
+    protected $data;
 
     /**
      * Transform the resource into an array.
@@ -34,13 +34,14 @@ class ParadaResource extends JsonResource
      */
     public function toArray($request)
     {
+        
         return [
             'id' => $this->id,
             'name' => $this->name,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];
     }
 }
