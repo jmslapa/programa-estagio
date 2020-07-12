@@ -22,7 +22,7 @@
                     "Paradas"
                 ],
                 "summary": "Lista de paradas",
-                "description": "Retorna uma lista, em formato JSON, com todas as paradas cadastradas",
+                "description": "Retorna uma lista com todas as paradas cadastradas",
                 "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\ParadaController::index",
                 "responses": {
                     "200": {
@@ -42,7 +42,7 @@
                     "Paradas"
                 ],
                 "summary": "Persiste nova parada",
-                "description": "Retorna, em formato JSON, dados da nova parada criada",
+                "description": "Retorna dados da nova parada criada",
                 "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\ParadaController::store",
                 "requestBody": {
                     "required": true,
@@ -278,6 +278,43 @@
                     "name": "ParadaResource"
                 }
             },
+            "Linha": {
+                "title": "Linha",
+                "description": "model Linha",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Identificador único",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome de uma linha",
+                        "type": "string",
+                        "example": "Circular II"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Data de criação do registro no banco de dados em formato UTC",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-07-11 16:30:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Data da última atualização do registro no banco de dados em formato UTC",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-07-11 16:30:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Linha"
+                }
+            },
             "Parada": {
                 "title": "Parada",
                 "description": "model Parada",
@@ -326,7 +363,7 @@
                 },
                 "type": "object",
                 "xml": {
-                    "name": "Project"
+                    "name": "Parada"
                 }
             }
         },

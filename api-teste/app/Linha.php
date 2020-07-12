@@ -5,11 +5,67 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Classe que representa o modelo de linha de transportes
- * @OA/Schema
+ * @OA\Schema(
+ *     title="Linha",
+ *     description="model Linha",
+ *     @OA\Xml(
+ *         name="Linha"
+ *     )
+ * )
  */
 class Linha extends Model
 {
+
+    /**
+     * @OA\Property(
+     *     title="ID",
+     *     description="Identificador único",
+     *     format="int64",
+     *     example=1
+     * )
+     *
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @OA\Property(
+     *     title="Name",
+     *     description="Nome de uma linha",
+     *     example="Circular II"
+     * )
+     *
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @OA\Property(
+     *     title="Created at",
+     *     description="Data de criação do registro no banco de dados em formato UTC",
+     *     example="2020-07-11 16:30:45",
+     *     format="datetime",
+     *     type="string"
+     * )
+     *
+     * @var \DateTime
+     */
+    private $created_at;
+    
+
+    /**
+     * @OA\Property(
+     *     title="Updated at",
+     *     description="Data da última atualização do registro no banco de dados em formato UTC",
+     *     example="2020-07-11 16:30:45",
+     *     format="datetime",
+     *     type="string"
+     * )
+     *
+     * @var \DateTime
+     */
+    private $updated_at;
+
     /**
      * Retorna as paradas atendidas pela linha
      *
