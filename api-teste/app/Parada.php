@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *     title="Parada",
  *     description="model Parada",
  *     @OA\Xml(
- *         name="Project"
+ *         name="Parada"
  *     )
  * )
  */
