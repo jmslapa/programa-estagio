@@ -70,6 +70,9 @@
                     },
                     "401": {
                         "description": "Não autorizado"
+                    },
+                    "422": {
+                        "description": "Entidade não processável"
                     }
                 }
             }
@@ -162,6 +165,9 @@
                     },
                     "404": {
                         "description": "Recurso não encontrado"
+                    },
+                    "422": {
+                        "description": "Entidade não processável"
                     }
                 }
             },
@@ -302,6 +308,20 @@
                         "type": "number",
                         "format": "double(6,6)",
                         "example": "-38.461213"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Data de criação do registro no banco de dados em formato UTC",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-07-11 16:30:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Data da última atualização do registro no banco de dados em formato UTC",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-07-11 16:30:45"
                     }
                 },
                 "type": "object",
@@ -313,6 +333,9 @@
         "responses": {
             "401": {
                 "description": "Não autorizado"
+            },
+            "500": {
+                "description": "Erro interno do servidor"
             }
         }
     },
