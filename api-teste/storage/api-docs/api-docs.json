@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Api Teste",
-        "description": "Api teste para o programa de estágio Aiko",
+        "description": "Api teste para o programa de estágio Aiko.\r\n *     Importante: Todas as requisições devem ter o cabeçalho Accept setado para receber o mime application/json.",
         "contact": {
             "name": "João Lapa",
             "email": "joaomanoel1996@hotmail.com"
