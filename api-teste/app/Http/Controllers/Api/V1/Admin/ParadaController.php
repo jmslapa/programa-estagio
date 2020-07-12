@@ -5,12 +5,9 @@ namespace App\Http\Controllers\Api\V1\Admin;
 use App\Api\ApiMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ParadaRequest;
-use App\Http\Resources\ParadaCollection;
-use App\Http\Resources\ParadaResource;
 use App\Parada;
-use App\Repositories\AbstractRepository;
-use App\Services\Api\AbstractService;
-use Illuminate\Http\Request;
+use App\Repositories\ParadaRepository;
+use App\Services\Api\ParadaService;
 
 /**
  * @OA\Tag(
@@ -33,8 +30,8 @@ class ParadaController extends Controller
      */
     public function __construct()
     {
-        $repository = new AbstractRepository(new Parada());
-        $this->service = new AbstractService($repository);
+        $repository = new ParadaRepository(new Parada());
+        $this->service = new ParadaService($repository);
     }
 
     /**
@@ -67,7 +64,7 @@ class ParadaController extends Controller
     {
         try {
             
-            $body = new ParadaCollection($this->service->getAll());
+            $body = $this->service->getAll();
             return response()->json($body, 200);
             
         }catch(\Exception $e) {
@@ -115,7 +112,7 @@ class ParadaController extends Controller
         try {
 
             $data = $request->all();
-            $body = new ParadaResource($this->service->insert($data));
+            $body = $this->service->insert($data);
             return response()->json($body, 201);
 
         }catch(\Exception $e) {
@@ -167,7 +164,7 @@ class ParadaController extends Controller
     {
         try {
 
-            $body = new ParadaResource($this->service->findByID($id));
+            $body = $this->service->findByID($id);
             return response()->json($body, 200);
 
         }catch(\Exception $e) {
@@ -229,7 +226,7 @@ class ParadaController extends Controller
         try {
 
             $data = $request->all();
-            $body = new ParadaResource($this->service->update($id, $data));
+            $body = $this->service->update($id, $data);
             return response()->json($body, 202);
 
         }catch(\Exception $e) {
