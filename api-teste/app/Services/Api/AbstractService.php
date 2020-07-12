@@ -30,14 +30,14 @@ abstract class AbstractService
      *
      * @return Resoruce
      */
-    public abstract function newResource();
+    protected abstract function newResource($resource);
 
     /**
      * Retorna uma instância de ResourceCollection do Model base do serviço.
      *
      * @return ResourceCollection
      */
-    public abstract function newCollection();
+    protected abstract function newCollection($resource);
 
     /**
      * Retorna uma lista com todos os registros.
@@ -46,7 +46,7 @@ abstract class AbstractService
      */
     public function getAll()
     {
-        return $this->repository->getAll();
+        return $this->newCollection($this->repository->getAll());
     }
 
     /**
@@ -58,7 +58,7 @@ abstract class AbstractService
      */
     public function findByID($id)
     {
-        return $this->repository->findByID($id);        
+        return $this->newResource($this->repository->findByID($id));        
     }
 
     /**
@@ -69,7 +69,7 @@ abstract class AbstractService
      * @return Model
      */
     public function insert($data) {
-        return $this->repository->insert($data);
+        return $this->newResource($this->repository->insert($data));
     }
 
     /**
@@ -85,7 +85,7 @@ abstract class AbstractService
         if(!$this->repository->update($id, $data)) {
             throw new Exception('Ops! Tivemos um problema, tente novamente mais tarde');
         }
-        return $this->repository->findByID($id);
+        return $this->newResource($this->repository->findByID($id));
     }
 
     /**
