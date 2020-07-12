@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api\V1\Admin;
 use App\Api\ApiMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ParadaRequest;
+use App\Http\Resources\ParadaCollection;
+use App\Http\Resources\ParadaResource;
 use App\Parada;
 use App\Repositories\AbstractRepository;
-use Exception;
+use App\Services\Api\AbstractService;
 use Illuminate\Http\Request;
 
 /**
@@ -19,15 +21,20 @@ use Illuminate\Http\Request;
 
 class ParadaController extends Controller
 {   
-
-    private $repository;
+    /**
+     * Serviço da entidade Parada
+     *
+     * @var AbstractService
+     */
+    private $service;
 
     /**
      * Retorna uma instância de ParadaController
      */
     public function __construct()
     {
-        $this->repository = new AbstractRepository(new Parada());
+        $repository = new AbstractRepository(new Parada());
+        $this->service = new AbstractService($repository);
     }
 
     /**
@@ -59,11 +66,14 @@ class ParadaController extends Controller
     public function index()
     {
         try {
-            return response()->json($this->repository->getAll(), 200);            
+            
+            $body = new ParadaCollection($this->service->getAll());
+            return response()->json($body, 200);
+            
         }catch(\Exception $e) {
             $message = new ApiMessage($e->getMessage());
             return response()->json($message->getMessage(), 500);
-        } 
+        }
     }
 
     /**
@@ -103,8 +113,11 @@ class ParadaController extends Controller
     public function store(ParadaRequest $request)
     {
         try {
+
             $data = $request->all();
-            return response()->json($this->repository->insert($data), 201);            
+            $body = new ParadaResource($this->service->insert($data));
+            return response()->json($body, 201);
+
         }catch(\Exception $e) {
             $message = new ApiMessage($e->getMessage());
             return response()->json($message->getMessage(), 400);
@@ -112,7 +125,7 @@ class ParadaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Recupera uma parada específica.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -153,7 +166,10 @@ class ParadaController extends Controller
     public function show($id)
     {
         try {
-            return response()->json($this->repository->findByID($id), 200);        
+
+            $body = new ParadaResource($this->service->findByID($id));
+            return response()->json($body, 200);
+
         }catch(\Exception $e) {
             $message = new ApiMessage($e->getMessage());
             return response()->json($message->getMessage(), 404);
@@ -161,7 +177,7 @@ class ParadaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza uma parada específica no banco de dados.
      *
      * @param  App\Http\Requests\ParadaRequest  $request
      * @param  int  $id
@@ -211,11 +227,11 @@ class ParadaController extends Controller
     public function update(ParadaRequest $request, $id)
     {   
         try {
+
             $data = $request->all();
-            if(!$this->repository->update($id, $data)) {
-                throw new Exception('Ops! Tivemos um problema, tente novamente mais tarde');
-            }
-            return response()->json($this->repository->findByID($id), 202);
+            $body = new ParadaResource($this->service->update($id, $data));
+            return response()->json($body, 202);
+
         }catch(\Exception $e) {
             $message = new ApiMessage($e->getMessage());
             return response()->json($message->getMessage(), 404);
@@ -223,7 +239,7 @@ class ParadaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Exclui uma parada específica do banco de dados.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -260,10 +276,10 @@ class ParadaController extends Controller
     public function destroy($id)
     {
         try {
-            if(!$this->repository->delete($id)){;
-                throw new \Exception('Ops! Tivemos um problema, tente novamente mais tarde.');
-            }
-            return response()->json([], 204);    
+
+            $this->service->delete($id);
+            return response()->json(null, 204);
+
         }catch(\Exception $e) {
             $message = new ApiMessage($e->getMessage());
             return response()->json($message->getMessage(), 404);
