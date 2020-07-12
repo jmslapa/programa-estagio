@@ -26,7 +26,7 @@ class Parada extends Model
      *
      * @var integer
      */
-    public $id;
+    private $id;
 
     /**
      * @OA\Property(
@@ -37,7 +37,7 @@ class Parada extends Model
      *
      * @var string
      */
-    public $name;
+    private $name;
 
     /**
      * @OA\Property(
@@ -49,7 +49,7 @@ class Parada extends Model
      *
      * @var double
      */
-    public $latitude;
+    private $latitude;
     
     /**
      * @OA\Property(
@@ -61,7 +61,7 @@ class Parada extends Model
      *
      * @var double
      */
-    public $longitude;
+    private $longitude;
 
     /**
      * @OA\Property(
@@ -74,7 +74,7 @@ class Parada extends Model
      *
      * @var \DateTime
      */
-    public $created_at;
+    private $created_at;
     
 
     /**
@@ -88,7 +88,7 @@ class Parada extends Model
      *
      * @var \DateTime
      */
-    public $updated_at;
+    private $updated_at;
 
     /**
      * Atributos que são atribuíveis em massa.
