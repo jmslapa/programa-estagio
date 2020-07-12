@@ -43,7 +43,7 @@ class ParadaController extends Controller
      *   path="/paradas",
      *   tags={"Paradas"},
      *   summary="Lista de paradas",
-     *   description="Retorna uma lista, em formato JSON, com todas as paradas cadastradas",
+     *   description="Retorna uma lista com todas as paradas cadastradas",
      *   @OA\Response(
      *     response=200,
      *     description="Operação bem-sucedida",
@@ -83,7 +83,7 @@ class ParadaController extends Controller
      *      path="/paradas",
      *      tags={"Paradas"},
      *      summary="Persiste nova parada",
-     *      description="Retorna, em formato JSON, dados da nova parada criada",
+     *      description="Retorna dados da nova parada criada",
      *      @OA\RequestBody(
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/ParadaRequest")
