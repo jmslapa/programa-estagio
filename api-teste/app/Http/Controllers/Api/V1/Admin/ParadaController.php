@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Api\ApiMessage;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ParadaRequest;
+use App\Http\Requests\ParadaStoreRequest;
+use App\Http\Requests\ParadaUpdateRequest;
 use App\Parada;
 use App\Repositories\ParadaRepository;
 use App\Services\Api\ParadaService;
@@ -75,7 +76,7 @@ class ParadaController extends Controller
     /**
      * Cria e persiste uma nova parada no banco de dados.
      *
-     * @param  App\Http\Requests\ParadaRequest  $request
+     * @param  App\Http\Requests\ParadaStoreRequest  $request
      * @return \Illuminate\Http\Response)
      * 
      *  @OA\Post(
@@ -85,7 +86,7 @@ class ParadaController extends Controller
      *      description="Retorna dados da nova parada criada",
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/ParadaRequest")
+     *          @OA\JsonContent(ref="#/components/schemas/ParadaStoreRequest")
      *      ),
      *      @OA\Response(
      *          response=201,
@@ -106,7 +107,7 @@ class ParadaController extends Controller
      *      )
      * )
      */
-    public function store(ParadaRequest $request)
+    public function store(ParadaStoreRequest $request)
     {
         try {
 
@@ -175,7 +176,7 @@ class ParadaController extends Controller
     /**
      * Atualiza uma parada específica no banco de dados.
      *
-     * @param  App\Http\Requests\ParadaRequest  $request
+     * @param  App\Http\Requests\ParadaUpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      * 
@@ -195,7 +196,7 @@ class ParadaController extends Controller
      *      ),
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/ParadaRequest")
+     *          @OA\JsonContent(ref="#/components/schemas/ParadaUpdateRequest")
      *      ),
      *      @OA\Response(
      *          response=202,
@@ -220,7 +221,7 @@ class ParadaController extends Controller
      *      )
      * )
      */
-    public function update(ParadaRequest $request, $id)
+    public function update(ParadaUpdateRequest $request, $id)
     {   
         try {
 
