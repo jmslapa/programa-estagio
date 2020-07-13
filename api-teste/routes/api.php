@@ -29,4 +29,7 @@ Route::group([
     Route::name('linhas.')->group(function() {
         Route::delete('/linhas/{id}/paradas', 'LinhaController@removeParadas')->name('removeParadas');
     });
+
+    // endpoints de veiculos
+    Route::resource('/veiculos', 'VeiculoController');
 });
