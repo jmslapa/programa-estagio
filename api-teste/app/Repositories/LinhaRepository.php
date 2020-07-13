@@ -39,14 +39,106 @@ class LinhaRepository extends AbstractRepository
     public function insert($data)
     {
         $result = DB::transaction(function() use($data) {
+
             $linha = $this->model->create($data);
+
             if(isset($data['paradas']) && count($data['paradas'])) {
+
                 foreach($data['paradas'] as $p) {
-                    $parada = $this->parada->findOrFail($p);
+                    $this->parada->findOrFail($p);
                 }
+
                 $linha->paradas()->sync($data['paradas']);
             }
+
             return $linha;
+        });
+
+        return $result;
+    }
+
+    /**
+     * Recupera um registro pelo seu id
+     * Se $fail = true, lança uma ModelNotFoundException.
+     *
+     * @param int  $id
+     * @param bool $fail
+     *
+     * @return Model
+     */
+    public function findByID($id, $fail = true)
+    {
+        if ($fail) {
+            return $this->model->findOrFail($id)->load('paradas');
+        }
+        return $this->model->find($id)->load('paradas');
+    }
+
+    /**
+     * Atualiza um novo registro no banco de dados.
+     * $id: Id do registro a ser atualizado.
+     * $data: Array associativo com dados a serem atualizados.
+     * $fail: Se $fail = true, lança uma ModelNotFoundException.
+     *
+     * @param int $id
+     * @param array $data
+     * @param boolean $fail
+     * @return Model
+     */
+    public function update($id, $data, $fail = true) {
+        $result = DB::transaction(function() use($id, $data, $fail) {            
+            $linha = null;
+
+            if ($fail) {
+                $linha = $this->model->findOrFail($id);
+            }else {
+                $linha = $this->model->find($id);
+            }
+
+            $linha->update($data);
+
+            if(isset($data['paradas']) && count($data['paradas'])) {
+                $paradas = $data['paradas'];
+                $paradasValidas = [];
+                foreach($paradas as $p) {
+                    $this->parada->findOrFail($p);
+                    if(!$linha->paradas()->find($p)) {                        
+                        $paradasValidas[] = $p;
+                    }
+                }
+                $linha->paradas()->attach($paradasValidas);
+            }
+
+            return $linha;
+        });
+        return $result;
+    }
+
+    /**
+     * Adiciona uma ou mais paradas à linha especificada.
+     * $id: Id da linha alvo.
+     * $paradas: array com ids das paradas a serem vinculadas à linha.
+     * 
+     * @param integer $id
+     * @param array $paradas
+     * @return Model[]
+     */
+    public function removeParadas($id, $paradas)
+    {
+        $result = DB::transaction(function() use($id, $paradas) {
+
+            $linha = $this->model->findOrFail($id);
+
+            if(count($paradas)) {
+
+                foreach($paradas as $p) {
+                    $linha->paradas()->findOrFail($p);
+                }
+
+                $linha->paradas()->detach($paradas);         
+            }
+
+            return $linha->paradas;
         });
         return $result;
     }
