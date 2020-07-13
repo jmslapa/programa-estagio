@@ -55,7 +55,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LinhaRequest"
+                                "$ref": "#/components/schemas/LinhaStoreRequest"
                             }
                         }
                     }
@@ -129,7 +129,7 @@
                     "Linhas"
                 ],
                 "summary": "Atualiza linha existente",
-                "description": "Retorna dados de uma linha atualizada",
+                "description": "Atualiza e retorna os dados de uma linha específica.",
                 "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\LinhaController::update",
                 "parameters": [
                     {
@@ -147,7 +147,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LinhaRequest"
+                                "$ref": "#/components/schemas/LinhaUpdateRequest"
                             }
                         }
                     }
@@ -213,6 +213,61 @@
                 }
             }
         },
+        "/linhas/{id}/paradas": {
+            "delete": {
+                "tags": [
+                    "Linhas"
+                ],
+                "summary": "Remove paradas de linha existente",
+                "description": "Remove uma ou mais paradas e retorna lista resultante de paradas da linha",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\LinhaController::removeParadas",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Linha id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LinhaRemoveParadaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ParadaResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
         "/paradas": {
             "get": {
                 "tags": [
@@ -252,7 +307,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ParadaRequest"
+                                "$ref": "#/components/schemas/ParadaStoreRequest"
                             }
                         }
                     }
@@ -344,7 +399,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ParadaRequest"
+                                "$ref": "#/components/schemas/ParadaUpdateRequest"
                             }
                         }
                     }
@@ -453,42 +508,107 @@
                     "name": "ApiMessage"
                 }
             },
-            "LinhaRequest": {
-                "title": "LinhaRequest",
-                "description": "Dados do corpo da LinhaRequest",
+            "LinhaRemoveParadaRequest": {
+                "title": "LinhaRemoveParadaRequest",
+                "description": "Dados do corpo da LinhaRemoveParadaRequest",
+                "required": [
+                    "paradas"
+                ],
+                "properties": {
+                    "paradas": {
+                        "title": "paradas",
+                        "description": "Array com IDs de paradas a serem vinculadas à linha",
+                        "type": "array",
+                        "items": {
+                            "title": "array",
+                            "example": 1
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "LinhaStoreRequest": {
+                "title": "LinhaStoreRequest",
+                "description": "Dados do corpo da LinhaStoreRequest",
                 "required": [
                     "name"
                 ],
                 "properties": {
-                    "id": {
-                        "title": "ID",
-                        "description": "Identificador único",
-                        "type": "integer",
-                        "format": "int64",
-                        "example": 1
-                    },
                     "name": {
                         "title": "Name",
                         "description": "Nome de uma linha",
                         "type": "string",
                         "example": "Circular II"
                     },
-                    "created_at": {
-                        "title": "Created at",
-                        "description": "Data de criação do registro no banco de dados em formato UTC",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-07-11 16:30:45"
+                    "paradas": {
+                        "title": "paradas",
+                        "description": "Array com IDs de paradas a serem vinculadas à linha",
+                        "type": "array",
+                        "items": {
+                            "title": "array",
+                            "example": 1
+                        }
                     }
                 },
                 "type": "object"
             },
-            "ParadaRequest": {
-                "title": "ParadaRequest",
-                "description": "Dados do corpo da ParadaRequest",
+            "LinhaUpdateRequest": {
+                "title": "LinhaUpdateRequest",
+                "description": "Dados do corpo da LinhaUpdateRequest",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome de uma linha",
+                        "type": "string",
+                        "example": "Circular II"
+                    },
+                    "paradas": {
+                        "title": "paradas",
+                        "description": "Array com IDs de paradas a serem vinculadas à linha",
+                        "type": "array",
+                        "items": {
+                            "title": "array",
+                            "example": 1
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ParadaStoreRequest": {
+                "title": "ParadaStoreRequest",
+                "description": "Dados do corpo da ParadaStoreRequest",
                 "required": [
-                    "name"
+                    "name",
+                    "latitude",
+                    "longitude"
                 ],
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome de uma parada",
+                        "type": "string",
+                        "example": "Final de linha da Pituba"
+                    },
+                    "latitude": {
+                        "title": "Latitude",
+                        "description": "Latitude da posição geográfica da parada",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-12.994757"
+                    },
+                    "longitude": {
+                        "title": "Longitude",
+                        "description": "Longitude da posição geográfica da parada",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-38.4612137"
+                    }
+                },
+                "type": "object"
+            },
+            "ParadaUpdateRequest": {
+                "title": "ParadaUpdateRequest",
+                "description": "Dados do corpo da ParadaUpdateRequest",
                 "properties": {
                     "name": {
                         "title": "Name",
