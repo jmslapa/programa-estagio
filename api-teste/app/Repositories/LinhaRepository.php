@@ -44,10 +44,6 @@ class LinhaRepository extends AbstractRepository
 
             if(isset($data['paradas']) && count($data['paradas'])) {
 
-                foreach($data['paradas'] as $p) {
-                    $this->parada->findOrFail($p);
-                }
-
                 $linha->paradas()->sync($data['paradas']);
             }
 
@@ -101,7 +97,6 @@ class LinhaRepository extends AbstractRepository
                 $paradas = $data['paradas'];
                 $paradasValidas = [];
                 foreach($paradas as $p) {
-                    $this->parada->findOrFail($p);
                     if(!$linha->paradas()->find($p)) {                        
                         $paradasValidas[] = $p;
                     }
@@ -130,10 +125,6 @@ class LinhaRepository extends AbstractRepository
             $linha = $this->model->findOrFail($id);
 
             if(count($paradas)) {
-
-                foreach($paradas as $p) {
-                    $linha->paradas()->findOrFail($p);
-                }
 
                 $linha->paradas()->detach($paradas);         
             }
