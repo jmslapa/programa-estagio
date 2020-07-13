@@ -6,27 +6,14 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @OA\Schema(
- *      title="LinhaRequest",
- *      description="Dados do corpo da LinhaRequest",
+ *      title="LinhaStoreRequest",
+ *      description="Dados do corpo da LinhaStoreRequest",
  *      type="object",
  *      required={"name"}
  * )
  */
-class LinhaRequest extends FormRequest
+class LinhaStoreRequest extends FormRequest
 {
-
-    /**
-     * @OA\Property(
-     *     title="ID",
-     *     description="Identificador único",
-     *     format="int64",
-     *     example=1
-     * )
-     *
-     * @var integer
-     */
-    private $id;
-
     /**
      * @OA\Property(
      *     title="Name",
@@ -40,16 +27,18 @@ class LinhaRequest extends FormRequest
 
     /**
      * @OA\Property(
-     *     title="Created at",
-     *     description="Data de criação do registro no banco de dados em formato UTC",
-     *     example="2020-07-11 16:30:45",
-     *     format="datetime",
-     *     type="string"
+     *     title="paradas",
+     *     description="Array com IDs de paradas a serem vinculadas à linha",
+     *     type="array",
+     *     @OA\Items(
+     *         title="array",
+     *         example=1
+     *     )
      * )
      *
-     * @var \DateTime
+     * @var array
      */
-    private $created_at;
+    private $paradas;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -70,7 +59,9 @@ class LinhaRequest extends FormRequest
     {
         $id = $this->segment(4);
         return [
-            'name' => "required|unique:linhas,name,{$id},id",
+            'name' => "required|unique:linhas",
+            'paradas' => 'nullable|array',
+            'paradas.*' => 'numeric'
         ];
     }
 }
