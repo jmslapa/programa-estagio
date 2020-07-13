@@ -24,7 +24,7 @@ class ParadaStoreRequest extends FormRequest
      *
      * @var string
      */
-    public $name;
+    private $name;
 
     /**
      * @OA\Property(
@@ -36,7 +36,7 @@ class ParadaStoreRequest extends FormRequest
      *
      * @var double
      */
-    public $latitude;
+    private $latitude;
     
     /**
      * @OA\Property(
@@ -48,7 +48,7 @@ class ParadaStoreRequest extends FormRequest
      *
      * @var double
      */
-    public $longitude;
+    private $longitude;
 
     /**
      * Determine if the user is authorized to make this request.
