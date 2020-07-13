@@ -6,13 +6,13 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @OA\Schema(
- *      title="ParadaRequest",
- *      description="Dados do corpo da ParadaRequest",
+ *      title="ParadaStoreRequest",
+ *      description="Dados do corpo da ParadaStoreRequest",
  *      type="object",
- *      required={"name"}
+ *      required={"name", "latitude", "longitude"}
  * )
  */
-class ParadaRequest extends FormRequest
+class ParadaStoreRequest extends FormRequest
 {
 
     /**
@@ -69,7 +69,7 @@ class ParadaRequest extends FormRequest
     {
         $id = $this->segment(4);
         return [
-            'name' => "required|unique:paradas,name,{$id},id",
+            'name' => "required|unique:paradas",
             'latitude' => 'required|numeric|between:-90,90|regex:/^-?[0-9]{1,2}(.[0-9]{1,6})?$/',
             'longitude' => 'required|numeric|between:-180,180|regex:/^-?[0-9]{1,3}(.[0-9]{1,6})?$/'
         ];
