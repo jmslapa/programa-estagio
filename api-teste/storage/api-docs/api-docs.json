@@ -16,13 +16,210 @@
         }
     ],
     "paths": {
+        "/linhas": {
+            "get": {
+                "tags": [
+                    "Linhas"
+                ],
+                "summary": "Recupera linhas",
+                "description": "Recupera todas as linhas",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\LinhaController::index",
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LinhaResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Linhas"
+                ],
+                "summary": "Persiste nova linha",
+                "description": "Retorna dados da nova linha criada",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\LinhaController::store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LinhaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Linha"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/linhas/{id}": {
+            "get": {
+                "tags": [
+                    "Linhas"
+                ],
+                "summary": "Informação de linha",
+                "description": "Retorna dados de uma linha",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\LinhaController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Linha id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Linha"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Linhas"
+                ],
+                "summary": "Atualiza linha existente",
+                "description": "Retorna dados de uma linha atualizada",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\LinhaController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Linha id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LinhaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Linha"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Linhas"
+                ],
+                "summary": "Exclui linha existente",
+                "description": "Exclui uma linha e não retorna nenhum conteúdo",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\LinhaController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Linha id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Operação bem sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    }
+                }
+            }
+        },
         "/paradas": {
             "get": {
                 "tags": [
                     "Paradas"
                 ],
-                "summary": "Lista de paradas",
-                "description": "Retorna uma lista com todas as paradas cadastradas",
+                "summary": "Recupera paradas",
+                "description": "Recupera todas as paradas",
                 "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\ParadaController::index",
                 "responses": {
                     "200": {
@@ -34,6 +231,12 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
                     }
                 }
             },
@@ -66,13 +269,13 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request"
+                        "$ref": "#/components/responses/400"
                     },
                     "401": {
-                        "description": "Não autorizado"
+                        "$ref": "#/components/responses/401"
                     },
-                    "422": {
-                        "description": "Entidade não processável"
+                    "500": {
+                        "$ref": "#/components/responses/500"
                     }
                 }
             }
@@ -108,13 +311,13 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request"
+                        "$ref": "#/components/responses/400"
                     },
                     "401": {
-                        "description": "Não Autorizado"
+                        "$ref": "#/components/responses/401"
                     },
                     "404": {
-                        "description": "Recurso não encontrado"
+                        "$ref": "#/components/responses/404"
                     }
                 }
             },
@@ -158,16 +361,16 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request"
+                        "$ref": "#/components/responses/400"
                     },
                     "401": {
-                        "description": "Não autorizado"
+                        "$ref": "#/components/responses/401"
                     },
                     "404": {
-                        "description": "Recurso não encontrado"
+                        "$ref": "#/components/responses/404"
                     },
                     "422": {
-                        "description": "Entidade não processável"
+                        "$ref": "#/components/responses/422"
                     }
                 }
             },
@@ -199,10 +402,10 @@
                         }
                     },
                     "401": {
-                        "description": "Não autorizado"
+                        "$ref": "#/components/responses/401"
                     },
                     "404": {
-                        "description": "Recurso não encontrado"
+                        "$ref": "#/components/responses/404"
                     }
                 }
             }
@@ -230,6 +433,56 @@
     },
     "components": {
         "schemas": {
+            "ApiMessage": {
+                "title": "ApiMessage",
+                "description": "model ApiMessage",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "description": "Um array que contém informaçõe do sistema para o usuário",
+                        "type": "array",
+                        "items": {},
+                        "example": {
+                            "message": "Not found",
+                            "errors": "[...]"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ApiMessage"
+                }
+            },
+            "LinhaRequest": {
+                "title": "LinhaRequest",
+                "description": "Dados do corpo da LinhaRequest",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Identificador único",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome de uma linha",
+                        "type": "string",
+                        "example": "Circular II"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Data de criação do registro no banco de dados em formato UTC",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-07-11 16:30:45"
+                    }
+                },
+                "type": "object"
+            },
             "ParadaRequest": {
                 "title": "ParadaRequest",
                 "description": "Dados do corpo da ParadaRequest",
@@ -259,6 +512,24 @@
                     }
                 },
                 "type": "object"
+            },
+            "LinhaResource": {
+                "title": "LinhaResource",
+                "description": "Recurso linha",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Wrapper de dados",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Linha"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "LinhaResource"
+                }
             },
             "ParadaResource": {
                 "title": "ParadaResource",
@@ -368,15 +639,63 @@
             }
         },
         "responses": {
+            "400": {
+                "description": "Bad Request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ApiMessage"
+                        }
+                    }
+                }
+            },
             "401": {
-                "description": "Não autorizado"
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ApiMessage"
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Not Found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ApiMessage"
+                        }
+                    }
+                }
+            },
+            "422": {
+                "description": "Unprocessable Entity",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ApiMessage"
+                        }
+                    }
+                }
             },
             "500": {
-                "description": "Erro interno do servidor"
+                "description": "Internal Server Error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ApiMessage"
+                        }
+                    }
+                }
             }
         }
     },
     "tags": [
+        {
+            "name": "Linhas",
+            "description": "Conjunto de endpoints com operações de CRUD para Linhas"
+        },
         {
             "name": "Paradas",
             "description": "Conjunto de endpoints com operações de CRUD para Paradas"
