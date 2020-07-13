@@ -4,10 +4,9 @@ namespace App\Services\Api;
 
 use App\Http\Resources\ParadaCollection;
 use App\Http\Resources\ParadaResource;
-use App\Parada;
 
 /**
- * Serviço abstrato base para os serviços de entidade
+ * Serviço base para os serviços de entidade
  */
 class ParadaService extends AbstractService
 {

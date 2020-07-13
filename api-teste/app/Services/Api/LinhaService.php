@@ -7,7 +7,7 @@ use App\Http\Resources\LinhaCollection;
 use App\Http\Resources\ParadaCollection;
 
 /**
- * Serviço abstrato base para os serviços de entidade
+ * Serviço base para os serviços de entidade
  */
 class LinhaService extends AbstractService
 {
