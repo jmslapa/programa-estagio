@@ -70,11 +70,13 @@ abstract class AbstractRepository {
 
     /**
      * Atualiza um novo registro no banco de dados
+     * $id: $id do registro a ser atualizado
+     * $data: array associativo com dados a serem atualizados
      * Se $fail = true, lança uma ModelNotFoundException.
-     * 
-     * @param int  $id
-     * @param bool $fail
-     * 
+     *
+     * @param int $id
+     * @param array $data
+     * @param boolean $fail
      * @return Model
      */
     public function update($id, $data, $fail = true) {
