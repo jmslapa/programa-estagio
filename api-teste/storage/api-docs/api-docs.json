@@ -484,6 +484,203 @@
                     }
                 }
             }
+        },
+        "/veiculos": {
+            "get": {
+                "tags": [
+                    "Veiculos"
+                ],
+                "summary": "Recupera veículos",
+                "description": "Recupera todos os veículos",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\VeiculoController::index",
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeiculoResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Veiculos"
+                ],
+                "summary": "Persiste novo veiculo",
+                "description": "Retorna dados do novo veículo criado",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\VeiculoController::store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VeiculoStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Veiculo"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/veiculos/{id}": {
+            "get": {
+                "tags": [
+                    "Veiculos"
+                ],
+                "summary": "Informação de veículo",
+                "description": "Retorna dados de um veículo",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\VeiculoController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Veículo id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Veiculo"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Veiculos"
+                ],
+                "summary": "Atualiza veiculo existente",
+                "description": "Retorna dados de um veículo atualizado",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\VeiculoController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Veiculo id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VeiculoUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Veiculo"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Veiculos"
+                ],
+                "summary": "Exclui veículo existente",
+                "description": "Exclui um veículo e não retorna nenhum conteúdo\n     *          Topico 1",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\VeiculoController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Veiculo id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Operação bem sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -633,6 +830,96 @@
                 },
                 "type": "object"
             },
+            "VeiculoStoreRequest": {
+                "title": "VeiculoStoreRequest",
+                "description": "Dados do corpo da VeiculoStoreRequest",
+                "required": [
+                    "name",
+                    "latitude",
+                    "longitude"
+                ],
+                "properties": {
+                    "linha_id": {
+                        "title": "Linha_ID",
+                        "description": "Identificador da linha a qual o veículo está vinculado",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome do veículo",
+                        "type": "string",
+                        "example": "Ônibus 48 lugares"
+                    },
+                    "modelo": {
+                        "title": "Modelo",
+                        "description": "Modelo de um veículo",
+                        "type": "string",
+                        "example": "Marcopolo Ideale 770"
+                    },
+                    "latitude": {
+                        "title": "Latitude",
+                        "description": "Latitude da posição geográfica da veiculo",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-12.994757"
+                    },
+                    "longitude": {
+                        "title": "Longitude",
+                        "description": "Longitude da posição geográfica da veiculo",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-38.4612137"
+                    }
+                },
+                "type": "object"
+            },
+            "VeiculoUpdateRequest": {
+                "title": "VeiculoUpdateRequest",
+                "description": "Dados do corpo da VeiculoUpdateRequest",
+                "required": [
+                    "name",
+                    "latitude",
+                    "longitude"
+                ],
+                "properties": {
+                    "linha_id": {
+                        "title": "Linha_ID",
+                        "description": "Identificador da linha a qual o veículo está vinculado",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome do veículo",
+                        "type": "string",
+                        "example": "Ônibus 48 lugares"
+                    },
+                    "modelo": {
+                        "title": "Modelo",
+                        "description": "Modelo de um veículo",
+                        "type": "string",
+                        "example": "Marcopolo Ideale 770"
+                    },
+                    "latitude": {
+                        "title": "Latitude",
+                        "description": "Latitude da posição geográfica da veiculo",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-12.994757"
+                    },
+                    "longitude": {
+                        "title": "Longitude",
+                        "description": "Longitude da posição geográfica da veiculo",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-38.4612137"
+                    }
+                },
+                "type": "object"
+            },
             "LinhaResource": {
                 "title": "LinhaResource",
                 "description": "Recurso linha",
@@ -667,6 +954,24 @@
                 "type": "object",
                 "xml": {
                     "name": "ParadaResource"
+                }
+            },
+            "VeiculoResource": {
+                "title": "VeiculoResource",
+                "description": "Recurso veiculo",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Wrapper de dados",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Veiculo"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "VeiculoResource"
                 }
             },
             "Linha": {
@@ -756,6 +1061,49 @@
                 "xml": {
                     "name": "Parada"
                 }
+            },
+            "Veiculo": {
+                "title": "Veiculo",
+                "description": "model Veiculo",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Identificador único",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome do veículo",
+                        "type": "string",
+                        "example": "Ônibus 48 lugares"
+                    },
+                    "modelo": {
+                        "title": "Modelo",
+                        "description": "Modelo de um veículo",
+                        "type": "string",
+                        "example": "Marcopolo Ideale 770"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Data de criação do registro no banco de dados em formato UTC",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-07-11 16:30:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Data da última atualização do registro no banco de dados em formato UTC",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-07-11 16:30:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Veiculo"
+                }
             }
         },
         "responses": {
@@ -823,6 +1171,10 @@
         {
             "name": "Users",
             "description": "Conjunto de endpoints com operações de CRUD para Usuários"
+        },
+        {
+            "name": "Veiculos",
+            "description": "Conjunto de endpoints com operações de CRUD para Veiculos"
         }
     ]
 }
