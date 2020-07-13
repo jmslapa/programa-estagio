@@ -67,6 +67,15 @@ class Linha extends Model
     private $updated_at;
 
     /**
+     * Atributos que são atribuíveis em massa.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+    ];
+
+    /**
      * Retorna as paradas atendidas pela linha
      *
      * @return mixed

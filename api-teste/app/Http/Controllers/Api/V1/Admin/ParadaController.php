@@ -39,26 +39,25 @@ class ParadaController extends Controller
      *
      * @return \Illuminate\Http\Response
      * 
-     * @OA\Get(
-     *   path="/paradas",
-     *   tags={"Paradas"},
-     *   summary="Lista de paradas",
-     *   description="Retorna uma lista com todas as paradas cadastradas",
-     *   @OA\Response(
-     *     response=200,
-     *     description="Operação bem-sucedida",
-     *     @OA\JsonContent(ref="#/components/schemas/ParadaResource")
-     *     )
-     *   ),
-     *   @OA\Response(
-     *     response=401,
-     *     description="Não autorizado"
-     *   ),
-     *   @OA\Response(
-     *     response=500,
-     *     description="Erro interno do servidor"
-     *   )
-     * )  
+     *  @OA\Get(
+     *      path="/paradas",
+     *      tags={"Paradas"},
+     *      summary="Recupera paradas",
+     *      description="Recupera todas as paradas",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operação bem-sucedida",
+     *          @OA\JsonContent(ref="#/components/schemas/ParadaResource")
+     *      ),      
+     *      @OA\Response(
+     *          response=401,
+     *          ref="#/components/responses/401"
+     *      ),      
+     *      @OA\Response(
+     *          response=500,
+     *          ref="#/components/responses/500"
+     *      )
+     *  )
      */
     public function index()
     {
@@ -95,15 +94,15 @@ class ParadaController extends Controller
      *       ),
      *      @OA\Response(
      *          response=400,
-     *          description="Bad Request"
-     *      ),
+     *          ref="#/components/responses/400"
+     *      ),      
      *      @OA\Response(
      *          response=401,
-     *          description="Não autorizado",
-     *      ),
+     *          ref="#/components/responses/401"
+     *      ),      
      *      @OA\Response(
-     *          response=422,
-     *          description="Entidade não processável",
+     *          response=500,
+     *          ref="#/components/responses/500"
      *      )
      * )
      */
@@ -145,18 +144,18 @@ class ParadaController extends Controller
      *          response=200,
      *          description="Operação bem-sucedida",
      *          @OA\JsonContent(ref="#/components/schemas/Parada")
-     *       ),
+     *      ),
      *      @OA\Response(
      *          response=400,
-     *          description="Bad Request"
+     *          ref="#/components/responses/400"
      *      ),
      *      @OA\Response(
      *          response=401,
-     *          description="Não Autorizado",
-     *      ),
+     *          ref="#/components/responses/401"
+     *      ),      
      *      @OA\Response(
      *          response=404,
-     *          description="Recurso não encontrado"
+     *          ref="#/components/responses/404"
      *      )
      * )
      */
@@ -205,19 +204,19 @@ class ParadaController extends Controller
      *       ),
      *      @OA\Response(
      *          response=400,
-     *          description="Bad Request"
+     *          ref="#/components/responses/400"
      *      ),
      *      @OA\Response(
      *          response=401,
-     *          description="Não autorizado",
-     *      ),
+     *          ref="#/components/responses/401"
+     *      ),      
      *      @OA\Response(
      *          response=404,
-     *          description="Recurso não encontrado"
-     *      ),
+     *          ref="#/components/responses/404"
+     *      ),      
      *      @OA\Response(
      *          response=422,
-     *          description="Entidade não processável",
+     *          ref="#/components/responses/422"
      *      )
      * )
      */
@@ -259,14 +258,14 @@ class ParadaController extends Controller
      *          response=204,
      *          description="Operação bem sucedida",
      *          @OA\JsonContent()
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Não autorizado",
      *      ),
      *      @OA\Response(
+     *          response=401,
+     *          ref="#/components/responses/401"
+     *      ),      
+     *      @OA\Response(
      *          response=404,
-     *          description="Recurso não encontrado"
+     *          ref="#/components/responses/404"
      *      )
      * )
      */

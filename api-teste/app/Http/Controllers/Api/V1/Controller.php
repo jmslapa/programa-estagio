@@ -15,6 +15,32 @@
  *   url=L5_SWAGGER_CONST_HOST,
  *   description="Servidor padrão da api"
  * )
+ * 
+ * @OA\Response(
+ *     response=400,
+ *     description="Bad Request",
+ *     @OA\JsonContent(ref="#/components/schemas/ApiMessage")
+ * )
+ * @OA\Response(
+ *     response=401,
+ *     description="Unauthorized",
+ *     @OA\JsonContent(ref="#/components/schemas/ApiMessage")
+ * )
+ * @OA\Response(
+ *     response=404,
+ *     description="Not Found",
+ *     @OA\JsonContent(ref="#/components/schemas/ApiMessage")
+ * )
+ * @OA\Response(
+ *     response=422,
+ *     description="Unprocessable Entity",
+ *     @OA\JsonContent(ref="#/components/schemas/ApiMessage")
+ * )
+ * @OA\Response(
+ *     response=500,
+ *     description="Internal Server Error",
+ *     @OA\JsonContent(ref="#/components/schemas/ApiMessage")
+ * )
  */
 class Controller
 {

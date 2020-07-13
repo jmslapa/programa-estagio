@@ -1,19 +1,38 @@
 <?php 
 
 namespace App\Api;
-
+/**
+ * @OA\Schema(
+ *     title="ApiMessage",
+ *     description="model ApiMessage",
+ *     @OA\Xml(
+ *         name="ApiMessage"
+ *     )
+ * )
+ */
 class ApiMessage {
     
-    private $message = [];
+    /**
+     * @OA\Property(
+     *     title="data",
+     *     description="Um array que contém informaçõe do sistema para o usuário",
+     *     type="array",
+     *     example={"message": "Not found", "errors": "[...]"},
+     *     @OA\Items()
+     * )
+     * 
+     * @var array
+     */
+    private $data = [];
 
     public function __construct(string $message, array $errors = [])
     {
-        $this->message['message'] = $message;
-        $this->message['errors'] = $errors;
+        $this->data['message'] = $message;
+        $this->data['errors'] = $errors;
     }
 
     public function getMessage()
     {
-        return $this->message;
+        return $this->data;
     }
 }
