@@ -82,7 +82,7 @@ class Veiculo extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'modelo', 'linha',
+        'linha_id', 'name', 'modelo'
     ];
 
     /**
