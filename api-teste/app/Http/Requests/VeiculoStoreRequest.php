@@ -92,7 +92,7 @@ class VeiculoStoreRequest extends FormRequest
     {
         $id = $this->segment(4);
         return [
-            'linha_id' => 'nullable|integer',
+            'linha_id' => 'nullable|integer|exists:linhas,id',
             'name' => 'required',
             'modelo' => 'required',
             'latitude' => 'required|numeric|between:-90,90|regex:/^-?[0-9]{1,2}(.[0-9]{1,6})?$/',
