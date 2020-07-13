@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Api\ApiMessage;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LinhaRequest;
+use App\Http\Requests\LinhaRemoveParadaRequest;
+use App\Http\Requests\LinhaStoreRequest;
+use App\Http\Requests\LinhaUpdateRequest;
 use App\Linha;
 use App\Repositories\LinhaRepository;
 use App\Services\Api\LinhaService;
@@ -75,7 +77,7 @@ class LinhaController extends Controller
     /**
      * Cria e persiste uma nova linha no banco de dados.
      *
-     * @param  App\Http\Requests\LinhaRequest  $request
+     * @param  App\Http\Requests\LinhaStoreRequest  $request
      * @return \Illuminate\Http\Response)
      * 
      *  @OA\Post(
@@ -85,7 +87,7 @@ class LinhaController extends Controller
      *      description="Retorna dados da nova linha criada",
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/LinhaRequest")
+     *          @OA\JsonContent(ref="#/components/schemas/LinhaStoreRequest")
      *      ),
      *      @OA\Response(
      *          response=201,
@@ -106,7 +108,7 @@ class LinhaController extends Controller
      *      )
      * )
      */
-    public function store(LinhaRequest $request)
+    public function store(LinhaStoreRequest $request)
     {
         try {
 
@@ -175,7 +177,7 @@ class LinhaController extends Controller
     /**
      * Atualiza uma linha específica no banco de dados.
      *
-     * @param  App\Http\Requests\LinhaRequest  $request
+     * @param  App\Http\Requests\LinhaUpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      * 
@@ -183,7 +185,7 @@ class LinhaController extends Controller
      *      path="/linhas/{id}",
      *      tags={"Linhas"},
      *      summary="Atualiza linha existente",
-     *      description="Retorna dados de uma linha atualizada",
+     *      description="Atualiza e retorna os dados de uma linha específica.",
      *      @OA\Parameter(
      *          name="id",
      *          description="Linha id",
@@ -195,7 +197,7 @@ class LinhaController extends Controller
      *      ),
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/LinhaRequest")
+     *          @OA\JsonContent(ref="#/components/schemas/LinhaUpdateRequest")
      *      ),
      *      @OA\Response(
      *          response=202,
@@ -220,7 +222,7 @@ class LinhaController extends Controller
      *      )
      * )
      */
-    public function update(LinhaRequest $request, $id)
+    public function update(LinhaUpdateRequest $request, $id)
     {   
         try {
 
@@ -275,6 +277,67 @@ class LinhaController extends Controller
 
             $this->service->delete($id);
             return response()->json(null, 204);
+
+        }catch(\Exception $e) {
+            $message = new ApiMessage($e->getMessage());
+            return response()->json($message->getMessage(), 404);
+        }
+    }
+
+    /**
+     * Atualiza uma linha específica no banco de dados.
+     *
+     * @param  App\Http\Requests\LinhaRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     * 
+     * @OA\Delete(
+     *      path="/linhas/{id}/paradas",
+     *      tags={"Linhas"},
+     *      summary="Remove paradas de linha existente",
+     *      description="Remove uma ou mais paradas e retorna lista resultante de paradas da linha",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Linha id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/LinhaRemoveParadaRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=202,
+     *          description="Operação bem-sucedida",
+     *          @OA\JsonContent(ref="#/components/schemas/ParadaResource")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          ref="#/components/responses/400"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          ref="#/components/responses/401"
+     *      ),      
+     *      @OA\Response(
+     *          response=404,
+     *          ref="#/components/responses/404"
+     *      ),      
+     *      @OA\Response(
+     *          response=422,
+     *          ref="#/components/responses/422"
+     *      )
+     * )
+     */
+    public function removeParadas(LinhaRemoveParadaRequest $request, $id)
+    {   
+        try {
+            $paradas = $request->paradas;   
+            $body = $this->service->removeParadas($id, $paradas);
+            return response()->json($body, 202);
 
         }catch(\Exception $e) {
             $message = new ApiMessage($e->getMessage());
