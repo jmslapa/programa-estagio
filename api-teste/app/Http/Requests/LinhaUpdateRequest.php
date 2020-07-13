@@ -60,7 +60,7 @@ class LinhaUpdateRequest extends FormRequest
         return [
             'name' => "nullable|unique:linhas,name,{$id},id",
             'paradas' => 'nullable|array',
-            'paradas.*' => 'numeric'
+            'paradas.*' => 'integer'
         ];
     }
 }

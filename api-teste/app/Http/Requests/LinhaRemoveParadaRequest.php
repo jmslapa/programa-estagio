@@ -50,7 +50,7 @@ class LinhaRemoveParadaRequest extends FormRequest
         $id = $this->segment(4);
         return [
             'paradas' => 'required',
-            'paradas.*' => 'numeric'
+            'paradas.*' => 'integer'
         ];
     }
 }

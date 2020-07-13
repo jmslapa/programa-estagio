@@ -61,7 +61,7 @@ class LinhaStoreRequest extends FormRequest
         return [
             'name' => "required|unique:linhas",
             'paradas' => 'nullable|array',
-            'paradas.*' => 'numeric'
+            'paradas.*' => 'integer'
         ];
     }
 }
