@@ -23,4 +23,7 @@ Route::group([
 
     // endpoints paradas 
     Route::resource('/paradas', 'ParadaController');
+
+    // endpoints linhas 
+    Route::resource('/linhas', 'LinhaController');
 });
