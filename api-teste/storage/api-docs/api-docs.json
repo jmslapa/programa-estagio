@@ -465,6 +465,203 @@
                 }
             }
         },
+        "/posicao-veiculos": {
+            "get": {
+                "tags": [
+                    "PosicaoVeiculos"
+                ],
+                "summary": "Recupera Posições de veículos",
+                "description": "Recupera todas as Posições de veículos",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\PosicaoVeiculoController::index",
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PosicaoVeiculoResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PosicaoVeiculos"
+                ],
+                "summary": "Persiste nova PosicaoVeiculo",
+                "description": "Retorna dados da nova PosicaoVeiculo criada",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\PosicaoVeiculoController::store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PosicaoVeiculoStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PosicaoVeiculo"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/posicao-veiculos/{id}": {
+            "get": {
+                "tags": [
+                    "PosicaoVeiculos"
+                ],
+                "summary": "Informação de PosicaoVeiculo",
+                "description": "Retorna dados de uma posição geográfica de um veículo",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\PosicaoVeiculoController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "PosicaoVeiculo id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PosicaoVeiculo"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "PosicaoVeiculos"
+                ],
+                "summary": "Atualiza PosicaoVeiculo existente",
+                "description": "Retorna dados de uma PosicaoVeiculo atualizada",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\PosicaoVeiculoController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "PosicaoVeiculo id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PosicaoVeiculoUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PosicaoVeiculo"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "PosicaoVeiculos"
+                ],
+                "summary": "Exclui PosicaoVeiculo existente",
+                "description": "Exclui uma PosicaoVeiculo e não retorna nenhum conteúdo",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\PosicaoVeiculoController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "PosicaoVeiculo id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Operação bem sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "tags": [
@@ -830,6 +1027,72 @@
                 },
                 "type": "object"
             },
+            "PosicaoVeiculoStoreRequest": {
+                "title": "PosicaoVeiculoStoreRequest",
+                "description": "Dados do corpo da PosicaoVeiculoStoreRequest",
+                "required": [
+                    "veiculo_id",
+                    "latitude",
+                    "longitude"
+                ],
+                "properties": {
+                    "veiculo_id": {
+                        "title": "Veiculo ID",
+                        "description": "Identificador único do veículo vinculado.",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "latitude": {
+                        "title": "Latitude",
+                        "description": "Latitude da posição geográfica do veículo vinculado.",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-12.994757"
+                    },
+                    "longitude": {
+                        "title": "Longitude",
+                        "description": "Longitude da posição geográfica do veículo vinculado.",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-38.461213"
+                    }
+                },
+                "type": "object"
+            },
+            "PosicaoVeiculoUpdateRequest": {
+                "title": "PosicaoVeiculoUpdateRequest",
+                "description": "Dados do corpo da PosicaoVeiculoUpdateRequest",
+                "required": [
+                    "veiculo_id",
+                    "latitude",
+                    "longitude"
+                ],
+                "properties": {
+                    "veiculo_id": {
+                        "title": "Veiculo ID",
+                        "description": "Identificador único do veículo vinculado.",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "latitude": {
+                        "title": "Latitude",
+                        "description": "Latitude da posição geográfica do veículo vinculado.",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-12.994757"
+                    },
+                    "longitude": {
+                        "title": "Longitude",
+                        "description": "Longitude da posição geográfica do veículo vinculado.",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-38.461213"
+                    }
+                },
+                "type": "object"
+            },
             "VeiculoStoreRequest": {
                 "title": "VeiculoStoreRequest",
                 "description": "Dados do corpo da VeiculoStoreRequest",
@@ -954,6 +1217,24 @@
                 "type": "object",
                 "xml": {
                     "name": "ParadaResource"
+                }
+            },
+            "PosicaoVeiculoResource": {
+                "title": "PosicaoVeiculoResource",
+                "description": "Recurso PosicaoVeiculo",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Wrapper de dados",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PosicaoVeiculo"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PosicaoVeiculoResource"
                 }
             },
             "VeiculoResource": {
@@ -1219,6 +1500,10 @@
         {
             "name": "Paradas",
             "description": "Conjunto de endpoints com operações de CRUD para Paradas"
+        },
+        {
+            "name": "PosicaoVeiculos",
+            "description": "Conjunto de endpoints com operações de CRUD para PosicaoVeiculos"
         },
         {
             "name": "Users",
