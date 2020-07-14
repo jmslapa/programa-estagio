@@ -81,9 +81,9 @@ class PosicaoVeiculoController extends Controller
      * 
      *  @OA\Post(
      *      path="/posicao-veiculos",
-     *      tags={"PosicaoVeiculos"},
-     *      summary="Persiste nova PosicaoVeiculo",
-     *      description="Retorna dados da nova PosicaoVeiculo criada",
+     *      tags={"Disabled"},
+     *      summary="Persiste nova PosicaoVeiculo (Endpoint desabilitado).",
+     *      description="A criação de PosicaoVeiculo só é possível pela criação de novo Veiculo.",
      *      @OA\RequestBody(
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/PosicaoVeiculoStoreRequest")
@@ -243,9 +243,9 @@ class PosicaoVeiculoController extends Controller
      * 
      * @OA\Delete(
      *      path="/posicao-veiculos/{id}",
-     *      tags={"PosicaoVeiculos"},
-     *      summary="Exclui PosicaoVeiculo existente",
-     *      description="Exclui uma PosicaoVeiculo e não retorna nenhum conteúdo",
+     *      tags={"Disabled"},
+     *      summary="Exclui PosicaoVeiculo existente (Endpoint desabilitado).",
+     *      description="A exclusão de PosicaoVeiculo só é possível pela exclusão do Veiculo vinculado.",
      *      @OA\Parameter(
      *          name="id",
      *          description="PosicaoVeiculo id",
