@@ -30,6 +30,23 @@ class VeiculoRepository extends AbstractRepository
     }
 
     /**
+     * Recupera um registro pelo seu id
+     * Se $fail = true, lança uma ModelNotFoundException.
+     *
+     * @param int  $id
+     * @param bool $fail
+     *
+     * @return Model
+     */
+    public function findByID($id, $fail = true)
+    {
+        if ($fail) {
+        return $this->model->findOrFail($id)->load('posicao');
+        }
+        return $this->model->find($id)->load('posicao');
+    }
+
+    /**
      * Insere um novo registro no banco de dados 
      * 
      * @param array  $data
@@ -50,6 +67,40 @@ class VeiculoRepository extends AbstractRepository
             return $veiculo;
         });
 
+        return $result;
+    }
+
+    /**
+     * Atualiza um novo registro no banco de dados
+     * $id: $id do registro a ser atualizado
+     * $data: array associativo com dados a serem atualizados
+     * Se $fail = true, lança uma ModelNotFoundException.
+     *
+     * @param int $id
+     * @param array $data
+     * @param boolean $fail
+     * @return Model
+     */
+    public function update($id, $data, $fail = true) {
+        $result = DB::transaction(function() use($id, $data, $fail) {
+
+            $veiculo = null;
+
+            if ($fail) {
+                $veiculo = $this->model->findOrFail($id);
+            }else {
+                $veiculo = $this->model->find($id);
+            }
+
+            $status = $veiculo->update($data);
+
+            $data['latitude'] ??= $veiculo->posicao->latitude;
+            $data['longitude'] ??= $veiculo->posicao->longitude;
+            
+            $veiculo->posicao->update($data);
+            
+            return $status;
+        });
         return $result;
     }
 }
