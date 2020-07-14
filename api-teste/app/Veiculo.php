@@ -30,6 +30,18 @@ class Veiculo extends Model
 
     /**
      * @OA\Property(
+     *     title="Linha ID",
+     *     description="Identificador único de uma linha",
+     *     format="int64",
+     *     example=1
+     * )
+     *
+     * @var integer
+     */
+    private $linha_id;
+
+    /**
+     * @OA\Property(
      *     title="Name",
      *     description="Nome do veículo",
      *     example="Ônibus 48 lugares"
