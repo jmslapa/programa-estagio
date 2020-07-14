@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Api Teste",
-        "description": "Api teste para o programa de estágio Aiko.\r\n *     Importante: Todas as requisições devem ter o cabeçalho Accept setado para receber o mime application/json.",
+        "description": "Api teste para o programa de estágio Aiko.\r\n *     Todas as requisições devem ter o cabeçalho 'Accept' setado para receber o MIME 'application/json'.\r\n *     Os endpoints PUT, devem ser enviados como POST, porém devem possuir um atributo '_method' com valor 'PUT' no request body.",
         "contact": {
             "name": "João Lapa",
             "email": "joaomanoel1996@hotmail.com"
@@ -494,10 +494,10 @@
             },
             "post": {
                 "tags": [
-                    "PosicaoVeiculos"
+                    "Disabled"
                 ],
-                "summary": "Persiste nova PosicaoVeiculo",
-                "description": "Retorna dados da nova PosicaoVeiculo criada",
+                "summary": "Persiste nova PosicaoVeiculo (Endpoint desabilitado).",
+                "description": "A criação de PosicaoVeiculo só é possível pela criação de novo Veiculo.",
                 "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\PosicaoVeiculoController::store",
                 "requestBody": {
                     "required": true,
@@ -628,10 +628,10 @@
             },
             "delete": {
                 "tags": [
-                    "PosicaoVeiculos"
+                    "Disabled"
                 ],
-                "summary": "Exclui PosicaoVeiculo existente",
-                "description": "Exclui uma PosicaoVeiculo e não retorna nenhum conteúdo",
+                "summary": "Exclui PosicaoVeiculo existente (Endpoint desabilitado).",
+                "description": "A exclusão de PosicaoVeiculo só é possível pela exclusão do Veiculo vinculado.",
                 "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\PosicaoVeiculoController::destroy",
                 "parameters": [
                     {
@@ -950,6 +950,12 @@
                 "title": "LinhaUpdateRequest",
                 "description": "Dados do corpo da LinhaUpdateRequest",
                 "properties": {
+                    "_method": {
+                        "title": "Method",
+                        "description": "Verbo HTTP que especifica o tipo da requisição",
+                        "type": "string",
+                        "example": "PUT"
+                    },
                     "name": {
                         "title": "Name",
                         "description": "Nome de uma linha",
@@ -1004,6 +1010,12 @@
                 "title": "ParadaUpdateRequest",
                 "description": "Dados do corpo da ParadaUpdateRequest",
                 "properties": {
+                    "_method": {
+                        "title": "Method",
+                        "description": "Verbo HTTP que especifica o tipo da requisição",
+                        "type": "string",
+                        "example": "PUT"
+                    },
                     "name": {
                         "title": "Name",
                         "description": "Nome de uma parada",
@@ -1069,6 +1081,12 @@
                     "longitude"
                 ],
                 "properties": {
+                    "_method": {
+                        "title": "Method",
+                        "description": "Verbo HTTP que especifica o tipo da requisição",
+                        "type": "string",
+                        "example": "PUT"
+                    },
                     "veiculo_id": {
                         "title": "Veiculo ID",
                         "description": "Identificador único do veículo vinculado.",
@@ -1147,6 +1165,12 @@
                     "longitude"
                 ],
                 "properties": {
+                    "_method": {
+                        "title": "Method",
+                        "description": "Verbo HTTP que especifica o tipo da requisição",
+                        "type": "string",
+                        "example": "PUT"
+                    },
                     "linha_id": {
                         "title": "Linha_ID",
                         "description": "Identificador da linha a qual o veículo está vinculado",
@@ -1512,6 +1536,10 @@
         {
             "name": "Veiculos",
             "description": "Conjunto de endpoints com operações de CRUD para Veiculos"
+        },
+        {
+            "name": "Disabled",
+            "description": "Endpoints que estão desabilitados."
         }
     ]
 }
