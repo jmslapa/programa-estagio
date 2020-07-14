@@ -33,16 +33,15 @@ class VeiculoResource extends JsonResource
      * @return array
      */
     public function toArray($request)
-    {
-        
+    {        
         return [
             'id' => $this->id,
             'linha_id' => $this->linha_id,
             'name' => $this->name,
             'modelo' => $this->modelo,
-            'posicao' => $this->whenLoaded('posicao'),
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),            
+            'posicao' => $this->whenLoaded('posicao')
         ];
     }
 }
