@@ -16,6 +16,17 @@ class PosicaoVeiculoUpdateRequest extends FormRequest
 {
     /**
      * @OA\Property(
+     *     title="Method",
+     *     description="Verbo HTTP que especifica o tipo da requisição",
+     *     example="PUT"
+     * )
+     *
+     * @var string
+     */
+    private $_method;
+
+    /**
+     * @OA\Property(
      *     title="Veiculo ID",
      *     description="Identificador único do veículo vinculado.",
      *     format="int64",

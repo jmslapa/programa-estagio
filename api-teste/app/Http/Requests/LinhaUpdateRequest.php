@@ -12,7 +12,18 @@ use Illuminate\Foundation\Http\FormRequest;
  * )
  */
 class LinhaUpdateRequest extends FormRequest
-{
+{   
+    /**
+     * @OA\Property(
+     *     title="Method",
+     *     description="Verbo HTTP que especifica o tipo da requisição",
+     *     example="PUT"
+     * )
+     *
+     * @var string
+     */
+    private $_method;
+
     /**
      * @OA\Property(
      *     title="Name",
