@@ -32,4 +32,7 @@ Route::group([
 
     // endpoints de veiculos
     Route::resource('/veiculos', 'VeiculoController');
+
+    // endpoints de posicaoVeiculos
+    Route::resource('/posicao-veiculos', 'PosicaoVeiculoController');
 });
