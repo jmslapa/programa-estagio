@@ -34,5 +34,11 @@ Route::group([
     Route::resource('/veiculos', 'VeiculoController');
 
     // endpoints de posicaoVeiculos
-    Route::resource('/posicao-veiculos', 'PosicaoVeiculoController');
+    Route::prefix('posicao-veiculos')->name('posicaoVeiculos.')->group(function() {
+        Route::get('/', 'PosicaoVeiculoController@index')->name('index');
+        //Route::post('/', 'PosicaoVeiculoController@store')->name('store');
+        Route::get('/{id}', 'PosicaoVeiculoController@show')->name('show');        
+        Route::put('/{id}', 'PosicaoVeiculoController@update')->name('update');                
+        //Route::delete('/{id}', 'PosicaoVeiculoController@destroy')->name('destroy');
+    });
 });
