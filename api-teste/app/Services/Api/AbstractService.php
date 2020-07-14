@@ -83,7 +83,7 @@ abstract class AbstractService
      */
     public function update($id, $data) {
         if(!$this->repository->update($id, $data)) {
-            throw new Exception('Ops! Tivemos um problema, tente novamente mais tarde');
+            throw new \Exception('Ops! Tivemos um problema, tente novamente mais tarde');
         }
         return $this->newResource($this->repository->findByID($id));
     }
