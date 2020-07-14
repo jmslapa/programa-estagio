@@ -38,7 +38,7 @@ class VeiculoRepository extends AbstractRepository
      *
      * @return Model
      */
-    public function findByID($id, $fail = true)
+    public function findById($id, $fail = true)
     {
         if ($fail) {
         return $this->model->findOrFail($id)->load('posicao');
