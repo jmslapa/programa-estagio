@@ -4,7 +4,8 @@
  * @OA\Info(
  *   title="Api Teste",
  *   description="Api teste para o programa de estágio Aiko.
- *     Importante: Todas as requisições devem ter o cabeçalho Accept setado para receber o mime application/json.",
+ *     Todas as requisições devem ter o cabeçalho 'Accept' setado para receber o MIME 'application/json'.
+ *     Os endpoints PUT, devem ser enviados como POST, porém devem possuir um atributo '_method' com valor 'PUT' no request body.",
  *   version="1.0.0",
  *   @OA\Contact(
  *     name="João Lapa",
@@ -14,6 +15,11 @@
  * @OA\Server(
  *   url=L5_SWAGGER_CONST_HOST,
  *   description="Servidor padrão da api"
+ * )
+ * 
+ * @OA\Tag(
+ *   name="Disabled",
+ *   description="Endpoints que estão desabilitados."
  * )
  * 
  * @OA\Response(
