@@ -878,6 +878,84 @@
                     }
                 }
             }
+        },
+        "/{parada_id}/linhas-por-parada": {
+            "get": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Recupera linhas de uma parada",
+                "description": "Retorna uma lista com todas as linhas de uma parada.",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\SearchController::linhasPorParada",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parada id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LinhaResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/{linha_id}/veiculos-por-linha": {
+            "get": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Recupera veículos de uma linha",
+                "description": "Retorna uma lista com todos os veículos de uma linha.",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\SearchController::veiculosPorLinha",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Linha id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeiculoResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -1430,6 +1508,13 @@
                         "format": "int64",
                         "example": 1
                     },
+                    "linha_id": {
+                        "title": "Linha ID",
+                        "description": "Identificador único de uma linha",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
                     "name": {
                         "title": "Name",
                         "description": "Nome do veículo",
@@ -1540,6 +1625,10 @@
         {
             "name": "Disabled",
             "description": "Endpoints que estão desabilitados."
+        },
+        {
+            "name": "Search",
+            "description": "Conjunto de endpoints para pesquisas"
         }
     ]
 }
