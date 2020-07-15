@@ -54,7 +54,7 @@ Route::middleware('api')->group(function() {
         });
 
         // endpoints restritos
-        Route::namespace('Admin')->group(function() {
+        Route::middleware('jwt.auth')->namespace('Admin')->group(function() {
 
             // endpoints paradas 
             Route::resource('/paradas', 'ParadaController');
