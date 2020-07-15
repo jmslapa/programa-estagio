@@ -95,6 +95,101 @@
                 }
             }
         },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Efetua logout",
+                "description": "Efetua logout do usuário.",
+                "operationId": "App\\Http\\Controllers\\Api\\AuthController::logout",
+                "responses": {
+                    "201": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Message",
+                                    "description": "Mensagem do sistema"
+                                },
+                                "example": "\"message\": \"Logout bem-sucedido\""
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/auth/autenticado": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Retorna usuário autenticado",
+                "description": "Retorna usuário atualmente autenticado",
+                "operationId": "App\\Http\\Controllers\\Api\\AuthController::autenticado",
+                "responses": {
+                    "201": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/auth/refresh": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Atualiza token",
+                "description": "Invalida o token atual e retorna um novo",
+                "operationId": "App\\Http\\Controllers\\Api\\AuthController::responseToken",
+                "responses": {
+                    "201": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenData"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
         "/linhas": {
             "get": {
                 "tags": [
@@ -1067,7 +1162,7 @@
                         "type": "array",
                         "items": {},
                         "example": {
-                            "message": "Not found",
+                            "message": "Mensagem de erro",
                             "errors": "[...]"
                         }
                     }
@@ -1711,6 +1806,13 @@
                 "title": "User",
                 "description": "model User",
                 "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Identificador único",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
                     "name": {
                         "title": "Name",
                         "description": "Nome do usuário",
@@ -1722,6 +1824,20 @@
                         "description": "E-mail do usuário",
                         "type": "string",
                         "example": "maria.silva@exemplo.com"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Data de criação do registro no banco de dados em formato UTC",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-07-11 16:30:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Data da última atualização do registro no banco de dados em formato UTC",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-07-11 16:30:45"
                     }
                 },
                 "type": "object",
