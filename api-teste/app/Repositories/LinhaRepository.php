@@ -133,4 +133,17 @@ class LinhaRepository extends AbstractRepository
         });
         return $result;
     }
+
+    /**
+     * Retorna todos os veiculos de uma linha.
+     * $id: Id de uma linha.
+     *
+     * @param int $id
+     * @return VeiculoCollection
+     */
+    public function getVeiculos($id)
+    {
+        $linha = $this->model->findOrFail($id);
+        return $linha->veiculos;
+    }
 }
