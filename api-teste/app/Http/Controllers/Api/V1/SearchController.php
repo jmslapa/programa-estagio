@@ -127,7 +127,8 @@ class SearchController extends Controller
 
     /**
      * Retorna uma lista com todas as paradas até 500 metros da posição informada.
-     *
+     * 
+     * @param  App\Http\Requests\SearchParadasProximasRequest $request
      * @return \Illuminate\Http\Response
      * 
      *  @OA\Get(
