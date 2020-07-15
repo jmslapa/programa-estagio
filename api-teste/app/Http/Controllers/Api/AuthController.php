@@ -130,19 +130,37 @@ class AuthController extends Controller
     }
 
     /**
-     * Retorna o usuário autenticado
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function autenticado()
-    {
-        return response()->json(auth()->user(), 200);
-    }
-
-    /**
      * Efetua logout
      *
      * @return \Illuminate\Http\Response
+     * 
+     *  @OA\Post(
+     *      path="/auth/logout",
+     *      tags={"Auth"},
+     *      summary="Efetua logout",
+     *      description="Efetua logout do usuário.",
+     *      @OA\Response(
+     *          response=201,
+     *          description="Operação bem-sucedida",
+     *          @OA\JsonContent(
+     *              title="Message",
+     *              description="Mensagem do sistema",
+     *              example="""message"": ""Logout bem-sucedido"""          
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          ref="#/components/responses/400"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          ref="#/components/responses/401"
+     *      ),      
+     *      @OA\Response(
+     *          response=500,
+     *          ref="#/components/responses/500"
+     *      )
+     * )
      */
     public function logout()
     {
@@ -156,6 +174,40 @@ class AuthController extends Controller
             $message = new ApiMessage($e->getMessage());
             return response()->json($message->getMessage(), 401);
         }
+    }
+
+    /**
+     * Retorna o usuário autenticado
+     *
+     * @return \Illuminate\Http\Response
+     * 
+     *  @OA\Post(
+     *      path="/auth/autenticado",
+     *      tags={"Auth"},
+     *      summary="Retorna usuário autenticado",
+     *      description="Retorna usuário atualmente autenticado",
+     *      @OA\Response(
+     *          response=201,
+     *          description="Operação bem-sucedida",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          ref="#/components/responses/400"
+     *      ), 
+     *      @OA\Response(
+     *          response=401,
+     *          ref="#/components/responses/401"
+     *      ),     
+     *      @OA\Response(
+     *          response=500,
+     *          ref="#/components/responses/500"
+     *      )
+     * )
+     */
+    public function autenticado()
+    {
+        return response()->json(auth()->user(), 200);
     }
 
     /**
@@ -173,6 +225,30 @@ class AuthController extends Controller
      *
      * @param mixed
      * @return \Illuminate\Http\Response
+     * 
+     *  @OA\Post(
+     *      path="/auth/refresh",
+     *      tags={"Auth"},
+     *      summary="Atualiza token",
+     *      description="Invalida o token atual e retorna um novo",
+     *      @OA\Response(
+     *          response=201,
+     *          description="Operação bem-sucedida",
+     *          @OA\JsonContent(ref="#/components/schemas/TokenData")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          ref="#/components/responses/400"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          ref="#/components/responses/401"
+     *      ),      
+     *      @OA\Response(
+     *          response=500,
+     *          ref="#/components/responses/500"
+     *      )
+     * )
      */
     private function responseToken($token)
     {
