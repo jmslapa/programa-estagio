@@ -16,6 +16,85 @@
         }
     ],
     "paths": {
+        "/auth/sign-up": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registra usuário",
+                "description": "Cria um novo registro de usuário.",
+                "operationId": "App\\Http\\Controllers\\Api\\AuthController::signUp",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignUpRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Efetua login",
+                "description": "Efetua autenticação do usuário e retorna token, token type e expiração.",
+                "operationId": "App\\Http\\Controllers\\Api\\AuthController::login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenData"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
         "/linhas": {
             "get": {
                 "tags": [
@@ -662,26 +741,6 @@
                 }
             }
         },
-        "/users": {
-            "get": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Lista de usuários",
-                "operationId": "App\\Http\\Controllers\\Api\\V1\\Admin\\UserController::index",
-                "responses": {
-                    "200": {
-                        "description": "Uma lista com todos os usuários cadastrados",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Acesso não autorizado"
-                    }
-                }
-            }
-        },
         "/veiculos": {
             "get": {
                 "tags": [
@@ -1090,6 +1149,29 @@
                 },
                 "type": "object"
             },
+            "LoginRequest": {
+                "title": "LoginRequest",
+                "description": "Dados do corpo da LoginRequest",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "title": "E-mail",
+                        "description": "E-mail do usuário",
+                        "type": "string",
+                        "example": "maria.silva@exemplo.com"
+                    },
+                    "password": {
+                        "title": "Password",
+                        "description": "Senha de acesso do usuário",
+                        "type": "string",
+                        "example": "exemplo@123"
+                    }
+                },
+                "type": "object"
+            },
             "ParadaStoreRequest": {
                 "title": "ParadaStoreRequest",
                 "description": "Dados do corpo da ParadaStoreRequest",
@@ -1248,6 +1330,43 @@
                         "type": "number",
                         "format": "double(6,6)",
                         "example": "-38.461113"
+                    }
+                },
+                "type": "object"
+            },
+            "SignUpRequest": {
+                "title": "SignUpRequest",
+                "description": "Dados do corpo da SignUpRequest",
+                "required": [
+                    "name",
+                    "email",
+                    "password",
+                    "password_confirmation"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome do usuário",
+                        "type": "string",
+                        "example": "Maria da Silva"
+                    },
+                    "email": {
+                        "title": "E-mail",
+                        "description": "E-mail do usuário",
+                        "type": "string",
+                        "example": "maria.silva@exemplo.com"
+                    },
+                    "password": {
+                        "title": "Password",
+                        "description": "Senha de acesso do usuário",
+                        "type": "string",
+                        "example": "exemplo@123"
+                    },
+                    "password_confirmation": {
+                        "title": "Password Confirmation",
+                        "description": "Confirmação da senha de usuário",
+                        "type": "string",
+                        "example": "exemplo@123"
                     }
                 },
                 "type": "object"
@@ -1560,6 +1679,56 @@
                     "name": "PosicaoVeiculo"
                 }
             },
+            "TokenData": {
+                "title": "TokenData",
+                "description": "model TokenData",
+                "properties": {
+                    "token": {
+                        "title": "Token",
+                        "description": "Token de autorização",
+                        "type": "string",
+                        "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkuYWlrby50ZXN0XC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNTk0Nzg1Nzk5LCJleHAiOjE1OTQ3ODkzOTksIm5iZiI6MTU5NDc4NTc5OSwianRpIjoienlLdXhBMGdGeWJDanFhUSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.NDZ2DtrEUJWr6I2WGz0IFv8BwEWfU2DpMEHHtC1udLI"
+                    },
+                    "token_type": {
+                        "title": "Token type",
+                        "description": "Tipo do token",
+                        "type": "string",
+                        "example": "Bearer"
+                    },
+                    "expiracao": {
+                        "title": "Expiração",
+                        "description": "Tempo de validade do token em segundos",
+                        "type": "integer",
+                        "example": "3600"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "TokenData"
+                }
+            },
+            "User": {
+                "title": "User",
+                "description": "model User",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome do usuário",
+                        "type": "string",
+                        "example": "Maria da Silva"
+                    },
+                    "email": {
+                        "title": "E-mail",
+                        "description": "E-mail do usuário",
+                        "type": "string",
+                        "example": "maria.silva@exemplo.com"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            },
             "Veiculo": {
                 "title": "Veiculo",
                 "description": "model Veiculo",
@@ -1666,6 +1835,10 @@
     },
     "tags": [
         {
+            "name": "Auth",
+            "description": "Conjunto de endpoints com operações de autenticação"
+        },
+        {
             "name": "Linhas",
             "description": "Conjunto de endpoints com operações de CRUD para Linhas"
         },
@@ -1676,10 +1849,6 @@
         {
             "name": "PosicaoVeiculos",
             "description": "Conjunto de endpoints com operações de CRUD para PosicaoVeiculos"
-        },
-        {
-            "name": "Users",
-            "description": "Conjunto de endpoints com operações de CRUD para Usuários"
         },
         {
             "name": "Veiculos",
