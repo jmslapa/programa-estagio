@@ -879,7 +879,7 @@
                 }
             }
         },
-        "/{parada_id}/linhas-por-parada": {
+        "/search/{parada_id}/linhas-por-parada": {
             "get": {
                 "tags": [
                     "Search"
@@ -909,8 +909,8 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/401"
+                    "404": {
+                        "$ref": "#/components/responses/404"
                     },
                     "500": {
                         "$ref": "#/components/responses/500"
@@ -918,7 +918,7 @@
                 }
             }
         },
-        "/{linha_id}/veiculos-por-linha": {
+        "/search/{linha_id}/veiculos-por-linha": {
             "get": {
                 "tags": [
                     "Search"
@@ -948,11 +948,49 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/401"
+                    "404": {
+                        "$ref": "#/components/responses/404"
                     },
                     "500": {
                         "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/search/paradas-proximas": {
+            "get": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Recupera paradas próximas",
+                "description": "Retorna uma lista com todas as paradas até 500 metros da posição informada",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\SearchController::paradasProximas",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SearchParadasProximasRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ParadaResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
                     }
                 }
             }
@@ -1185,6 +1223,31 @@
                         "type": "number",
                         "format": "double(6,6)",
                         "example": "-38.461213"
+                    }
+                },
+                "type": "object"
+            },
+            "SearchParadasProximasRequest": {
+                "title": "SearchParadasProximasRequest",
+                "description": "Dados do corpo da SearchParadasProximasRequest",
+                "required": [
+                    "latitude",
+                    "longitude"
+                ],
+                "properties": {
+                    "latitude": {
+                        "title": "Latitude",
+                        "description": "Latitude da posição geográfica do veículo vinculado.",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-12.998250"
+                    },
+                    "longitude": {
+                        "title": "Longitude",
+                        "description": "Longitude da posição geográfica do veículo vinculado.",
+                        "type": "number",
+                        "format": "double(6,6)",
+                        "example": "-38.461113"
                     }
                 },
                 "type": "object"
