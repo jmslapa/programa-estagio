@@ -22,6 +22,18 @@ class User extends Authenticatable implements JWTSubject
 
     /**
      * @OA\Property(
+     *     title="ID",
+     *     description="Identificador único",
+     *     format="int64",
+     *     example=1
+     * )
+     *
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @OA\Property(
      *     title="Name",
      *     description="Nome do usuário",
      *     example="Maria da Silva"
@@ -41,6 +53,33 @@ class User extends Authenticatable implements JWTSubject
      * @var string
      */
     private $email;
+
+    /**
+     * @OA\Property(
+     *     title="Created at",
+     *     description="Data de criação do registro no banco de dados em formato UTC",
+     *     example="2020-07-11 16:30:45",
+     *     format="datetime",
+     *     type="string"
+     * )
+     *
+     * @var \DateTime
+     */
+    private $created_at;
+    
+
+    /**
+     * @OA\Property(
+     *     title="Updated at",
+     *     description="Data da última atualização do registro no banco de dados em formato UTC",
+     *     example="2020-07-11 16:30:45",
+     *     format="datetime",
+     *     type="string"
+     * )
+     *
+     * @var \DateTime
+     */
+    private $updated_at;
 
     /**
      * The attributes that are mass assignable.
