@@ -13,52 +13,73 @@ use Illuminate\Http\Request;
 |
 */
 
-// endpoints api v1
-Route::prefix('v1')->namespace('Api\\V1')->group(function() {
+Route::middleware('api')->group(function() {
+    
+    // endpoints autenticação
+    Route::prefix('auth')->namespace('Api')->group(function() {
 
-    // endpoints search
-    Route::prefix('search')->name('search.')->group(function() {
-        
-        // Linhas por parada
-        Route::get('/{parada_id}/linhas-por-parada', 'SearchController@linhasPorParada')
-        ->name('linhasPorParada');
+        // sign up
+        Route::post('sign-up', 'AuthController@signUp')->name('signUp');
 
-        // Linhas por parada
-        Route::get('/{linha_id}/veiculos-por-linha', 'SearchController@veiculosPorLinha')        
-        ->name('veiculosPorLinha');
+        // login
+        Route::post('login', 'AuthController@login')->name('login');
 
-        // Paradas Próximas
-        Route::get('/paradas-proximas', 'SearchController@paradasProximas')
-        ->name('paradasProximas');
+        // logout
+        Route::post('logout', 'AuthController@logout')->name('logout');
+
+        // refresh
+        Route::post('refresh', 'AuthController@refresh')->name('refresh');
+
+        // autenticado
+        Route::post('autenticado', 'AuthController@autenticado')->name('autenticado');
     });
 
-    // endpoints restritos
-    Route::namespace('Admin')->group(function() {
+    // endpoints api v1
+    Route::prefix('v1')->namespace('Api\\V1')->group(function() {
 
-        // endpoints users
-        Route::resource('/users', 'UserController');
+        // endpoints search
+        Route::prefix('search')->name('search.')->group(function() {
+            
+            // Linhas por parada
+            Route::get('/{parada_id}/linhas-por-parada', 'SearchController@linhasPorParada')
+            ->name('linhasPorParada');
 
-        // endpoints paradas 
-        Route::resource('/paradas', 'ParadaController');
+            // Linhas por parada
+            Route::get('/{linha_id}/veiculos-por-linha', 'SearchController@veiculosPorLinha')        
+            ->name('veiculosPorLinha');
 
-        // endpoints linhas 
-        Route::resource('/linhas', 'LinhaController');
-        Route::name('linhas.')->group(function() {
-            Route::delete('/linhas/{id}/paradas', 'LinhaController@removeParadas')->name('removeParadas');
+            // Paradas Próximas
+            Route::get('/paradas-proximas', 'SearchController@paradasProximas')
+            ->name('paradasProximas');
         });
 
-        // endpoints de veiculos
-        Route::resource('/veiculos', 'VeiculoController');
+        // endpoints restritos
+        Route::namespace('Admin')->group(function() {
 
-        // endpoints de posicaoVeiculos
-        Route::prefix('posicao-veiculos')->name('posicaoVeiculos.')->group(function() {
-            Route::get('/', 'PosicaoVeiculoController@index')->name('index');
-            //Route::post('/', 'PosicaoVeiculoController@store')->name('store');
-            Route::get('/{id}', 'PosicaoVeiculoController@show')->name('show');        
-            Route::put('/{id}', 'PosicaoVeiculoController@update')->name('update');                
-            //Route::delete('/{id}', 'PosicaoVeiculoController@destroy')->name('destroy');
+            // endpoints paradas 
+            Route::resource('/paradas', 'ParadaController');
+
+            // endpoints linhas 
+            Route::resource('/linhas', 'LinhaController');
+            Route::name('linhas.')->group(function() {
+                Route::delete('/linhas/{id}/paradas', 'LinhaController@removeParadas')->name('removeParadas');
+            });
+
+            // endpoints de veiculos
+            Route::resource('/veiculos', 'VeiculoController');
+
+            // endpoints de posicaoVeiculos
+            Route::prefix('posicao-veiculos')->name('posicaoVeiculos.')->group(function() {
+                Route::get('/', 'PosicaoVeiculoController@index')->name('index');
+                //Route::post('/', 'PosicaoVeiculoController@store')->name('store');
+                Route::get('/{id}', 'PosicaoVeiculoController@show')->name('show');        
+                Route::put('/{id}', 'PosicaoVeiculoController@update')->name('update');                
+                //Route::delete('/{id}', 'PosicaoVeiculoController@destroy')->name('destroy');
+            });
         });
+
     });
-
 });
+
+
 
