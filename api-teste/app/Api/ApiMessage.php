@@ -17,7 +17,7 @@ class ApiMessage {
      *     title="data",
      *     description="Um array que contém informaçõe do sistema para o usuário",
      *     type="array",
-     *     example={"message": "Not found", "errors": "[...]"},
+     *     example={"message": "Mensagem de erro", "errors": "[...]"},
      *     @OA\Items()
      * )
      * 
