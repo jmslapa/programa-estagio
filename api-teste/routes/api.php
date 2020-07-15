@@ -22,9 +22,14 @@ Route::prefix('v1')->namespace('Api\\V1')->group(function() {
         // Linhas por parada
         Route::get('/{parada_id}/linhas-por-parada', 'SearchController@linhasPorParada')
         ->name('linhasPorParada');
+
         // Linhas por parada
-        Route::get('/{linha_id}/veiculos-por-linha', 'SearchController@veiculosPorLinha')
+        Route::get('/{linha_id}/veiculos-por-linha', 'SearchController@veiculosPorLinha')        
         ->name('veiculosPorLinha');
+
+        // Paradas Próximas
+        Route::get('/paradas-proximas', 'SearchController@paradasProximas')
+        ->name('paradasProximas');
     });
 
     // endpoints restritos
