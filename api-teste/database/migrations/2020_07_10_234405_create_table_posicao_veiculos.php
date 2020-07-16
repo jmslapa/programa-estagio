@@ -15,7 +15,7 @@ class CreateTablePosicaoVeiculos extends Migration
     {
         Schema::create('posicao_veiculos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('veiculo_id');
+            $table->unsignedBigInteger('veiculo_id')->unique();
             $table->double('latitude');
             $table->double('longitude');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
