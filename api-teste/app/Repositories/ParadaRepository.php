@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\App;
+
 /**
  * Repositório da entidade Parada
  */
@@ -75,5 +77,25 @@ class ParadaRepository extends AbstractRepository
         }
 
         return $dist;
+    }
+
+    /**
+     * Recebe um array com query strings de filtros e aplica-os numa query ao banco de dados retornando
+     * o resultado da mesma.
+     * 
+     * @exemplo $filters: ['name:like:%parada%', 'id:>:0'].
+     * @param array $filters
+     * @return Parada[]
+     */
+    public function filtrar(array $filters = [])
+    {        
+        $query = $this->model->query();
+
+        foreach($filters as $f) {
+            $chunks = explode(':', $f);
+            $query->where($chunks[0], $chunks[1], $chunks[2]);
+        }
+
+        return $query->get();
     }
 }
