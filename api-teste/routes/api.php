@@ -41,16 +41,20 @@ Route::middleware('api')->group(function() {
         Route::prefix('search')->name('search.')->group(function() {
             
             // Linhas por parada
-            Route::get('/{parada_id}/linhas-por-parada', 'SearchController@linhasPorParada')
+            Route::get('/paradas/{parada_id}/linhas-por-parada', 'SearchController@linhasPorParada')
             ->name('linhasPorParada');
 
-            // Linhas por parada
-            Route::get('/{linha_id}/veiculos-por-linha', 'SearchController@veiculosPorLinha')        
+            // Veiculos por linha
+            Route::get('/linhas/{linha_id}/veiculos-por-linha', 'SearchController@veiculosPorLinha')        
             ->name('veiculosPorLinha');
 
             // Paradas Próximas
-            Route::get('/paradas-proximas', 'SearchController@paradasProximas')
+            Route::get('/paradas/paradas-proximas', 'SearchController@paradasProximas')
             ->name('paradasProximas');
+
+            // Filtros Parada
+            Route::get('/paradas/filtrar', 'SearchController@filtrarParadas')
+            ->name('filtrarParadas');
         });
 
         // endpoints restritos
