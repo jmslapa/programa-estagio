@@ -1033,7 +1033,7 @@
                 }
             }
         },
-        "/search/{parada_id}/linhas-por-parada": {
+        "/search/paradas/{parada_id}/linhas-por-parada": {
             "get": {
                 "tags": [
                     "Search"
@@ -1072,7 +1072,7 @@
                 }
             }
         },
-        "/search/{linha_id}/veiculos-por-linha": {
+        "/search/linhas/{linha_id}/veiculos-por-linha": {
             "get": {
                 "tags": [
                     "Search"
@@ -1111,7 +1111,7 @@
                 }
             }
         },
-        "/search/paradas-proximas": {
+        "/search/paradas/paradas-proximas": {
             "get": {
                 "tags": [
                     "Search"
@@ -1129,6 +1129,46 @@
                         }
                     }
                 },
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ParadaResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/search/paradas/filtrar": {
+            "get": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Filtra Paradas",
+                "description": "Retorna uma lista de paradas com filtros aplicados",
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\SearchController::filtrarParadas",
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "query",
+                        "description": "Filtros de busca no formato 'atributo:operador:parâmetro' com ';' como delimitador",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "?filters=name:like:%parada%;id:>:0"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Operação bem-sucedida",
