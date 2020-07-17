@@ -5,7 +5,8 @@
  *   title="Api Teste",
  *   description="Api teste para o programa de estágio Aiko.
  *     Todas as requisições devem ter o cabeçalho 'Accept' setado para receber o MIME 'application/json'.
- *     Os endpoints PUT, devem ser enviados como POST, porém devem possuir um atributo '_method' com valor 'PUT' no request body.",
+ *     Os endpoints PUT, devem ser enviados como POST, porém devem possuir um atributo '_method' com valor 'PUT' no request body.
+ *     As representações de data estão no formato UTC (+0:00).",
  *   version="1.0.0",
  *   @OA\Contact(
  *     name="João Lapa",
