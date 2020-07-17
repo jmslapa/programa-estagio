@@ -43,7 +43,7 @@ class SearchController extends Controller
      *      summary="Recupera linhas de uma parada",
      *      description="Retorna uma lista com todas as linhas de uma parada.",
      *      @OA\Parameter(
-     *          name="id",
+     *          name="parada_id",
      *          description="Parada id",
      *          required=true,
      *          in="path",
@@ -75,7 +75,7 @@ class SearchController extends Controller
             
         }catch(\Exception $e) {
             $message = new ApiMessage($e->getMessage());
-            return response()->json($message->getMessage(), 500);
+            return response()->json($message->getMessage(), 404);
         }
     }
 
@@ -90,7 +90,7 @@ class SearchController extends Controller
      *      summary="Recupera veículos de uma linha",
      *      description="Retorna uma lista com todos os veículos de uma linha.",
      *      @OA\Parameter(
-     *          name="id",
+     *          name="linha_id",
      *          description="Linha id",
      *          required=true,
      *          in="path",
@@ -122,7 +122,7 @@ class SearchController extends Controller
             
         }catch(\Exception $e) {
             $message = new ApiMessage($e->getMessage());
-            return response()->json($message->getMessage(), 500);
+            return response()->json($message->getMessage(), 404);
         }
     }
 
@@ -202,6 +202,10 @@ class SearchController extends Controller
      *      ),     
      *      @OA\Response(
      *          response=422,
+     *          ref="#/components/responses/422"
+     *      ),     
+     *      @OA\Response(
+     *          response=500,
      *          ref="#/components/responses/422"
      *      )
      *  )
